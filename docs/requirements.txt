@@ -1,0 +1,4 @@
+furo==2021.11.16
+Flask==2.3.3
+ecdsa
+python-dotenv
