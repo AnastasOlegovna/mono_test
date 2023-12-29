@@ -6,6 +6,7 @@ import ecdsa
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
+import unittest
 
 app = Flask(__name__)
 
@@ -26,8 +27,22 @@ def get_from_env(key):
     return os.environ.get(key)  # GET TOKEN
 
 
+class TestGetFromEnv(unittest.TestCase):
+    def setUp(self):
+        self.key = 'TEST_KEY'
+        self.value = 'TEST_VALUE'
+        os.environ[self.key] = self.value
+
+    def test_get_from_env(self):
+        self.assertEqual(get_from_env(self.key), self.value)
+
+    def tearDown(self):
+        del os.environ[self.key]
+
+
 # Prod
 API_SECRET_KEY = get_from_env('API_KEY')
+
 
 # Test
 # API_SECRET_KEY = get_from_env('API_TEST')
@@ -44,11 +59,24 @@ def verify_webhook(data, hmac_header):
     :return: ok
     :rtype: str
 
+    >>>
+    verify_webhook({
+      "invoiceId": "mockInvoiceId",
+      "status": "mockStatus",
+      "amount": 123,
+      "ccy": 456,
+      "createdDate": "2023-12-30T16:08:06Z",
+      "modifiedDate": "2023-12-30T16:08:06Z",
+      "reference": "mockReference"
+    }, 'mockhash')  # replace with actual test data
+    True  # expected output
+    >>>
     """
     pub_key_bytes = base64.b64decode(API_SECRET_KEY)
     signature_bytes = base64.b64decode(hmac_header)
     pub_key = ecdsa.VerifyingKey.from_pem(pub_key_bytes.decode())
     ok = pub_key.verify(signature_bytes, data, sigdecode=ecdsa.util.sigdecode_der, hashfunc=hashlib.sha256)
+
     return ok
 
 
@@ -69,16 +97,19 @@ def handle_webhook():
     # print(f'Raw data:{data}')
     x_sign = request.headers.get('X-Sign')
     ok = verify_webhook(data, x_sign)
+    # print(f'data: {data}')
+    # print(f'hah: {x_sign}')
+
     if ok:
         print("verified")
         response = request.json
         print(f'Update:{response}')
     else:
         print("not verified")
-
     return {"ok": True}
 
 
 if __name__ == "__main__":
     # Set webhook for the bot
+    unittest.main(exit=False)
     app.run(host='localhost', port=8013)

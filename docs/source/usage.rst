@@ -1,4 +1,3 @@
-
 Usage
 =====
 
@@ -21,7 +20,7 @@ For test, I use `Ngrok <https://ngrok.com/docs/getting-started>`_
 
 .. note::
 
-   inside file write API_KEY=<YOUR_API_KEY>
+    inside file write API_KEY=<YOUR_API_KEY>
 
     Don't forget set your address in invoice ``param: "webHookUrl": "your_address"``
 
@@ -34,6 +33,12 @@ Get your API key,
 you can use the ``get_from_env(key)`` function
 
 .. autofunction:: webhook_prod.get_from_env
+
+You can see small test ``get_from_env(key)`` function
+
+>>> import webhook_prod
+>>> webhook_prod.get_from_env("Test")
+'Test'
 
 To try verify your webhook,
 you can use the ``verify_webhook(data, hmac_header)`` function
