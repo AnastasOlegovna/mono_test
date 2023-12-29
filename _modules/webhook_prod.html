@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>webhook_prod &#8212; Mono_test_webhook&#39;s</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/agogo.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Mono_test_webhook&#39;s</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for webhook_prod</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This module handles webhooks for the application.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">ecdsa</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">dirname</span>
+<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="get_from_env"><a class="viewcode-back" href="../usage.html#webhook_prod.get_from_env">[docs]</a><span class="k">def</span> <span class="nf">get_from_env</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return key</span>
+
+<span class="sd">    :param key: required name of key</span>
+<span class="sd">    :type key: str</span>
+
+<span class="sd">    :return: value of key_name</span>
+<span class="sd">    :rtype: str</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dotenv_path</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;.env&#39;</span><span class="p">)</span>
+    <span class="n">load_dotenv</span><span class="p">(</span><span class="n">dotenv_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>  <span class="c1"># GET TOKEN</span></div>
+
+
+<span class="c1"># Prod</span>
+<span class="n">API_SECRET_KEY</span> <span class="o">=</span> <span class="n">get_from_env</span><span class="p">(</span><span class="s1">&#39;API_KEY&#39;</span><span class="p">)</span>
+
+<span class="c1"># Test</span>
+<span class="c1"># API_SECRET_KEY = get_from_env(&#39;API_TEST&#39;)</span>
+
+
+<div class="viewcode-block" id="verify_webhook"><a class="viewcode-back" href="../usage.html#webhook_prod.verify_webhook">[docs]</a><span class="k">def</span> <span class="nf">verify_webhook</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">hmac_header</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return ok</span>
+
+<span class="sd">    :param data: required response in request.get_data()</span>
+<span class="sd">    :type data: str or None</span>
+<span class="sd">    :param hmac_header: required response in request.headers.get(&#39;X-Sign&#39;)</span>
+<span class="sd">    :type hmac_header: list[str] or None</span>
+<span class="sd">    :return: ok</span>
+<span class="sd">    :rtype: str</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pub_key_bytes</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">API_SECRET_KEY</span><span class="p">)</span>
+    <span class="n">signature_bytes</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">hmac_header</span><span class="p">)</span>
+    <span class="n">pub_key</span> <span class="o">=</span> <span class="n">ecdsa</span><span class="o">.</span><span class="n">VerifyingKey</span><span class="o">.</span><span class="n">from_pem</span><span class="p">(</span><span class="n">pub_key_bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+    <span class="n">ok</span> <span class="o">=</span> <span class="n">pub_key</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">signature_bytes</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">sigdecode</span><span class="o">=</span><span class="n">ecdsa</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">sigdecode_der</span><span class="p">,</span> <span class="n">hashfunc</span><span class="o">=</span><span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ok</span></div>
+
+
+<div class="viewcode-block" id="handle_webhook"><a class="viewcode-back" href="../usage.html#webhook_prod.handle_webhook">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">handle_webhook</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     Handle incoming webhooks, verify their authenticity, and print the response.</span>
+
+<span class="sd">     This function retrieves the raw data from the incoming webhook request and the &#39;X-Sign&#39; from the headers.</span>
+<span class="sd">     It then verifies the webhook using the &#39;verify_webhook&#39; function. If the webhook is verified, it prints</span>
+<span class="sd">     &quot;verified&quot; and the JSON response from the request. If the webhook is not verified, it prints &quot;not verified&quot;.</span>
+
+<span class="sd">     :return: A dictionary with a single key-value pair, where the key is &#39;ok&#39; and the value is True.</span>
+<span class="sd">     :rtype: dict</span>
+<span class="sd">     &quot;&quot;&quot;</span>
+    <span class="c1"># Get raw body</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+    <span class="c1"># print(f&#39;Raw data:{data}&#39;)</span>
+    <span class="n">x_sign</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;X-Sign&#39;</span><span class="p">)</span>
+    <span class="n">ok</span> <span class="o">=</span> <span class="n">verify_webhook</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x_sign</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;verified&quot;</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Update:</span><span class="si">{response}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;not verified&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;ok&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># Set webhook for the bot</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8013</span><span class="p">)</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="../py-modindex.html" title="Python Module Index"
+              >modules</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023, Ponomarova.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

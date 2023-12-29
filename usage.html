@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Usage &#8212; Mono_test_webhook&#39;s</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/agogo.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API" href="api.html" />
+    <link rel="prev" title="Welcome to Mono_test_webhook’s!" href="index.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="index.html">Mono_test_webhook&#39;s</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="index.html" title="Welcome to Mono_test_webhook’s!"
+             accesskey="P">previous</a> |
+          <a href="api.html" title="API"
+             accesskey="N">next</a> |
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation">
+<span id="id1"></span><h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>To use module, first install requirements.txt:</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(.venv)</span> <span class="go">docs$ pip install -r requirements.txt</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Create your own reverse proxy to receive webhooks directly in the app in ‘localhost’ and port 8013</p></li>
+</ol>
+<p>For test, I use <a class="reference external" href="https://ngrok.com/docs/getting-started">Ngrok</a></p>
+<ol class="arabic simple" start="3">
+<li><p>Create .env file</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>inside file write API_KEY=&lt;YOUR_API_KEY&gt;</p>
+<blockquote>
+<div><p>Don’t forget set your address in invoice <code class="docutils literal notranslate"><span class="pre">param:</span> <span class="pre">&quot;webHookUrl&quot;:</span> <span class="pre">&quot;your_address&quot;</span></code></p>
+<p>If you have 2 and more shops, use <code class="docutils literal notranslate"><span class="pre">param:</span> <span class="pre">&quot;reference&quot;:</span> <span class="pre">&quot;shop_number&quot;</span></code></p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="use">
+<h2>Use<a class="headerlink" href="#use" title="Permalink to this headline">¶</a></h2>
+<p>Get your API key,
+you can use the <code class="docutils literal notranslate"><span class="pre">get_from_env(key)</span></code> function</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="webhook_prod.get_from_env">
+<span class="sig-prename descclassname"><span class="pre">webhook_prod.</span></span><span class="sig-name descname"><span class="pre">get_from_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/webhook_prod.html#get_from_env"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#webhook_prod.get_from_env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return key</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – required name of key</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>value of key_name</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>To try verify your webhook,
+you can use the <code class="docutils literal notranslate"><span class="pre">verify_webhook(data,</span> <span class="pre">hmac_header)</span></code> function</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="webhook_prod.verify_webhook">
+<span class="sig-prename descclassname"><span class="pre">webhook_prod.</span></span><span class="sig-name descname"><span class="pre">verify_webhook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hmac_header</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/webhook_prod.html#verify_webhook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#webhook_prod.verify_webhook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return ok</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>str</em><em> or </em><em>None</em>) – required response in request.get_data()</p></li>
+<li><p><strong>hmac_header</strong> (<em>list</em><em>[</em><em>str</em><em>] or </em><em>None</em>) – required response in request.headers.get(‘X-Sign’)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>ok</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>For listening all webhook, you can use <code class="docutils literal notranslate"><span class="pre">handle_webhook()</span></code> function</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="webhook_prod.handle_webhook">
+<span class="sig-prename descclassname"><span class="pre">webhook_prod.</span></span><span class="sig-name descname"><span class="pre">handle_webhook</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/webhook_prod.html#handle_webhook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#webhook_prod.handle_webhook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle incoming webhooks, verify their authenticity, and print the response.</p>
+<p>This function retrieves the raw data from the incoming webhook request and the ‘X-Sign’ from the headers.
+It then verifies the webhook using the ‘verify_webhook’ function. If the webhook is verified, it prints
+“verified” and the JSON response from the request. If the webhook is not verified, it prints “not verified”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary with a single key-value pair, where the key is ‘ok’ and the value is True.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#use">Use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="index.html" title="Welcome to Mono_test_webhook’s!"
+              >previous</a> |
+            <a href="api.html" title="API"
+              >next</a> |
+            <a href="py-modindex.html" title="Python Module Index"
+              >modules</a> |
+            <a href="genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="_sources/usage.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023, Ponomarova.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
