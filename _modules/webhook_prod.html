@@ -45,6 +45,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">dirname</span>
 <span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -65,8 +66,22 @@
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>  <span class="c1"># GET TOKEN</span></div>
 
 
+<span class="k">class</span> <span class="nc">TestGetFromEnv</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;TEST_KEY&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;TEST_VALUE&#39;</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">test_get_from_env</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">get_from_env</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">del</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">]</span>
+
+
 <span class="c1"># Prod</span>
 <span class="n">API_SECRET_KEY</span> <span class="o">=</span> <span class="n">get_from_env</span><span class="p">(</span><span class="s1">&#39;API_KEY&#39;</span><span class="p">)</span>
+
 
 <span class="c1"># Test</span>
 <span class="c1"># API_SECRET_KEY = get_from_env(&#39;API_TEST&#39;)</span>
@@ -83,11 +98,24 @@
 <span class="sd">    :return: ok</span>
 <span class="sd">    :rtype: str</span>
 
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    verify_webhook({</span>
+<span class="sd">      &quot;invoiceId&quot;: &quot;mockInvoiceId&quot;,</span>
+<span class="sd">      &quot;status&quot;: &quot;mockStatus&quot;,</span>
+<span class="sd">      &quot;amount&quot;: 123,</span>
+<span class="sd">      &quot;ccy&quot;: 456,</span>
+<span class="sd">      &quot;createdDate&quot;: &quot;2023-12-30T16:08:06Z&quot;,</span>
+<span class="sd">      &quot;modifiedDate&quot;: &quot;2023-12-30T16:08:06Z&quot;,</span>
+<span class="sd">      &quot;reference&quot;: &quot;mockReference&quot;</span>
+<span class="sd">    }, &#39;mockhash&#39;)  # replace with actual test data</span>
+<span class="sd">    True  # expected output</span>
+<span class="sd">    &gt;&gt;&gt;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">pub_key_bytes</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">API_SECRET_KEY</span><span class="p">)</span>
     <span class="n">signature_bytes</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">hmac_header</span><span class="p">)</span>
     <span class="n">pub_key</span> <span class="o">=</span> <span class="n">ecdsa</span><span class="o">.</span><span class="n">VerifyingKey</span><span class="o">.</span><span class="n">from_pem</span><span class="p">(</span><span class="n">pub_key_bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
     <span class="n">ok</span> <span class="o">=</span> <span class="n">pub_key</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">signature_bytes</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">sigdecode</span><span class="o">=</span><span class="n">ecdsa</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">sigdecode_der</span><span class="p">,</span> <span class="n">hashfunc</span><span class="o">=</span><span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">ok</span></div>
 
 
@@ -108,18 +136,21 @@
     <span class="c1"># print(f&#39;Raw data:{data}&#39;)</span>
     <span class="n">x_sign</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;X-Sign&#39;</span><span class="p">)</span>
     <span class="n">ok</span> <span class="o">=</span> <span class="n">verify_webhook</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x_sign</span><span class="p">)</span>
+    <span class="c1"># print(f&#39;data: {data}&#39;)</span>
+    <span class="c1"># print(f&#39;hah: {x_sign}&#39;)</span>
+
     <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;verified&quot;</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Update:</span><span class="si">{response}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;not verified&quot;</span><span class="p">)</span>
-
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;ok&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="c1"># Set webhook for the bot</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">exit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8013</span><span class="p">)</span>
 </pre></div>
 

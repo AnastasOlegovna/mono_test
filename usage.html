@@ -62,10 +62,8 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>inside file write API_KEY=&lt;YOUR_API_KEY&gt;</p>
-<blockquote>
-<div><p>Don’t forget set your address in invoice <code class="docutils literal notranslate"><span class="pre">param:</span> <span class="pre">&quot;webHookUrl&quot;:</span> <span class="pre">&quot;your_address&quot;</span></code></p>
+<p>Don’t forget set your address in invoice <code class="docutils literal notranslate"><span class="pre">param:</span> <span class="pre">&quot;webHookUrl&quot;:</span> <span class="pre">&quot;your_address&quot;</span></code></p>
 <p>If you have 2 and more shops, use <code class="docutils literal notranslate"><span class="pre">param:</span> <span class="pre">&quot;reference&quot;:</span> <span class="pre">&quot;shop_number&quot;</span></code></p>
-</div></blockquote>
 </div>
 </div>
 <div class="section" id="use">
@@ -89,6 +87,12 @@ you can use the <code class="docutils literal notranslate"><span class="pre">get
 </dl>
 </dd></dl>
 
+<p>You can see small test <code class="docutils literal notranslate"><span class="pre">get_from_env(key)</span></code> function</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">webhook_prod</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">webhook_prod</span><span class="o">.</span><span class="n">get_from_env</span><span class="p">(</span><span class="s2">&quot;Test&quot;</span><span class="p">)</span>
+<span class="go">&#39;Test&#39;</span>
+</pre></div>
+</div>
 <p>To try verify your webhook,
 you can use the <code class="docutils literal notranslate"><span class="pre">verify_webhook(data,</span> <span class="pre">hmac_header)</span></code> function</p>
 <dl class="py function">
@@ -109,6 +113,20 @@ you can use the <code class="docutils literal notranslate"><span class="pre">ver
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="go">&gt;&gt;&gt;</span>
+<span class="go">verify_webhook({</span>
+<span class="go">  &quot;invoiceId&quot;: &quot;mockInvoiceId&quot;,</span>
+<span class="go">  &quot;status&quot;: &quot;mockStatus&quot;,</span>
+<span class="go">  &quot;amount&quot;: 123,</span>
+<span class="go">  &quot;ccy&quot;: 456,</span>
+<span class="go">  &quot;createdDate&quot;: &quot;2023-12-30T16:08:06Z&quot;,</span>
+<span class="go">  &quot;modifiedDate&quot;: &quot;2023-12-30T16:08:06Z&quot;,</span>
+<span class="go">  &quot;reference&quot;: &quot;mockReference&quot;</span>
+<span class="go">}, &#39;mockhash&#39;)  # replace with actual test data</span>
+<span class="go">True  # expected output</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <p>For listening all webhook, you can use <code class="docutils literal notranslate"><span class="pre">handle_webhook()</span></code> function</p>
