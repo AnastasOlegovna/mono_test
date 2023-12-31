@@ -22,3 +22,9 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: docs/build/html
+    - name: Build and deploy Jekyll site
+      uses: helaili/jekyll-action@2.0.1
+      if: github.ref == 'refs/heads/main'
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+      
