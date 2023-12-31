@@ -20,5 +20,4 @@ jobs:
       uses: helaili/jekyll-action@2.0.1
       if: github.ref == 'refs/heads/main'
       with:
-        JEKYLL_PAT: ${{ secrets.GITHUB_TOKEN }}
-      
+        jekyll_src: ./docs/source
