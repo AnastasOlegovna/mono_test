@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>webhook_prod &#8212; Mono_test_webhook&#39;s</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/agogo.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -52,7 +52,7 @@
 
 <div class="viewcode-block" id="get_from_env"><a class="viewcode-back" href="../usage.html#webhook_prod.get_from_env">[docs]</a><span class="k">def</span> <span class="nf">get_from_env</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return key</span>
+<span class="sd">    Return key.</span>
 
 <span class="sd">    :param key: required name of key</span>
 <span class="sd">    :type key: str</span>
@@ -67,15 +67,20 @@
 
 
 <span class="k">class</span> <span class="nc">TestGetFromEnv</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Unit test class for testing the get_from_env function.&quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set up the test environment. This method is called before each test.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;TEST_KEY&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;TEST_VALUE&#39;</span>
         <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
 
     <span class="k">def</span> <span class="nf">test_get_from_env</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test the get_from_env function with a key that exists in the environment.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">get_from_env</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clean up the test environment. This method is called after each test.&quot;&quot;&quot;</span>
         <span class="k">del</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">]</span>
 
 
@@ -89,28 +94,29 @@
 
 <div class="viewcode-block" id="verify_webhook"><a class="viewcode-back" href="../usage.html#webhook_prod.verify_webhook">[docs]</a><span class="k">def</span> <span class="nf">verify_webhook</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">hmac_header</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return ok</span>
+<span class="sd">    Return ok.</span>
 
-<span class="sd">    :param data: required response in request.get_data()</span>
-<span class="sd">    :type data: str or None</span>
-<span class="sd">    :param hmac_header: required response in request.headers.get(&#39;X-Sign&#39;)</span>
-<span class="sd">    :type hmac_header: list[str] or None</span>
+<span class="sd">    :param data: response from server Mono</span>
+
+<span class="sd">    :param hmac_header: hash X-Sign from response</span>
+
 <span class="sd">    :return: ok</span>
-<span class="sd">    :rtype: str</span>
 
-<span class="sd">    &gt;&gt;&gt;</span>
-<span class="sd">    verify_webhook({</span>
-<span class="sd">      &quot;invoiceId&quot;: &quot;mockInvoiceId&quot;,</span>
-<span class="sd">      &quot;status&quot;: &quot;mockStatus&quot;,</span>
-<span class="sd">      &quot;amount&quot;: 123,</span>
-<span class="sd">      &quot;ccy&quot;: 456,</span>
-<span class="sd">      &quot;createdDate&quot;: &quot;2023-12-30T16:08:06Z&quot;,</span>
-<span class="sd">      &quot;modifiedDate&quot;: &quot;2023-12-30T16:08:06Z&quot;,</span>
-<span class="sd">      &quot;reference&quot;: &quot;mockReference&quot;</span>
-<span class="sd">    }, &#39;mockhash&#39;)  # replace with actual test data</span>
-<span class="sd">    True  # expected output</span>
-<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    .. doctest:: :hide:</span>
+
+<span class="sd">        &gt;&gt;&gt; verify_webhook({</span>
+<span class="sd">        ...   &quot;invoiceId&quot;: &quot;mockInvoiceId&quot;,</span>
+<span class="sd">        ...   &quot;status&quot;: &quot;mockStatus&quot;,</span>
+<span class="sd">        ...   &quot;amount&quot;: 123,</span>
+<span class="sd">        ...   &quot;ccy&quot;: 456,</span>
+<span class="sd">        ...   &quot;createdDate&quot;: &quot;2023-12-30T16:08:06Z&quot;,</span>
+<span class="sd">        ...   &quot;modifiedDate&quot;: &quot;2023-12-30T16:08:06Z&quot;,</span>
+<span class="sd">        ...   &quot;reference&quot;: &quot;mockReference&quot;</span>
+<span class="sd">        ... }, &#39;mockhash&#39;)  # replace with actual test data</span>
+<span class="sd">        True  # expected output</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Your function code here</span>
     <span class="n">pub_key_bytes</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">API_SECRET_KEY</span><span class="p">)</span>
     <span class="n">signature_bytes</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">hmac_header</span><span class="p">)</span>
     <span class="n">pub_key</span> <span class="o">=</span> <span class="n">ecdsa</span><span class="o">.</span><span class="n">VerifyingKey</span><span class="o">.</span><span class="n">from_pem</span><span class="p">(</span><span class="n">pub_key_bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
@@ -122,15 +128,15 @@
 <div class="viewcode-block" id="handle_webhook"><a class="viewcode-back" href="../usage.html#webhook_prod.handle_webhook">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">handle_webhook</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">     Handle incoming webhooks, verify their authenticity, and print the response.</span>
+<span class="sd">    Handle incoming webhooks, verify their authenticity, and print the response.</span>
 
-<span class="sd">     This function retrieves the raw data from the incoming webhook request and the &#39;X-Sign&#39; from the headers.</span>
-<span class="sd">     It then verifies the webhook using the &#39;verify_webhook&#39; function. If the webhook is verified, it prints</span>
-<span class="sd">     &quot;verified&quot; and the JSON response from the request. If the webhook is not verified, it prints &quot;not verified&quot;.</span>
+<span class="sd">    This function retrieves the raw data from the incoming webhook request and the &#39;X-Sign&#39; from the headers.</span>
+<span class="sd">    It then verifies the webhook using the &#39;verify_webhook&#39; function. If the webhook is verified, it prints</span>
+<span class="sd">    &quot;verified&quot; and the JSON response from the request. If the webhook is not verified, it prints &quot;not verified&quot;.</span>
 
-<span class="sd">     :return: A dictionary with a single key-value pair, where the key is &#39;ok&#39; and the value is True.</span>
-<span class="sd">     :rtype: dict</span>
-<span class="sd">     &quot;&quot;&quot;</span>
+<span class="sd">    :return: A dictionary with a single key-value pair, where the key is &#39;ok&#39; and the value is True.</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Get raw body</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
     <span class="c1"># print(f&#39;Raw data:{data}&#39;)</span>
@@ -197,6 +203,7 @@
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2023, Ponomarova.
+      Last updated on January 04 2024.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
         </div>

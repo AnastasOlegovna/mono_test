@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Usage &#8212; Mono_test_webhook&#39;s</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/agogo.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -73,7 +73,7 @@ you can use the <code class="docutils literal notranslate"><span class="pre">get
 <dl class="py function">
 <dt class="sig sig-object py" id="webhook_prod.get_from_env">
 <span class="sig-prename descclassname"><span class="pre">webhook_prod.</span></span><span class="sig-name descname"><span class="pre">get_from_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/webhook_prod.html#get_from_env"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#webhook_prod.get_from_env" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return key</p>
+<dd><p>Return key.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – required name of key</p>
@@ -98,35 +98,18 @@ you can use the <code class="docutils literal notranslate"><span class="pre">ver
 <dl class="py function">
 <dt class="sig sig-object py" id="webhook_prod.verify_webhook">
 <span class="sig-prename descclassname"><span class="pre">webhook_prod.</span></span><span class="sig-name descname"><span class="pre">verify_webhook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hmac_header</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/webhook_prod.html#verify_webhook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#webhook_prod.verify_webhook" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return ok</p>
+<dd><p>Return ok.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>str</em><em> or </em><em>None</em>) – required response in request.get_data()</p></li>
-<li><p><strong>hmac_header</strong> (<em>list</em><em>[</em><em>str</em><em>] or </em><em>None</em>) – required response in request.headers.get(‘X-Sign’)</p></li>
+<li><p><strong>data</strong> – response from server Mono</p></li>
+<li><p><strong>hmac_header</strong> – hash X-Sign from response</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>ok</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>str</p>
-</dd>
 </dl>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="go">&gt;&gt;&gt;</span>
-<span class="go">verify_webhook({</span>
-<span class="go">  &quot;invoiceId&quot;: &quot;mockInvoiceId&quot;,</span>
-<span class="go">  &quot;status&quot;: &quot;mockStatus&quot;,</span>
-<span class="go">  &quot;amount&quot;: 123,</span>
-<span class="go">  &quot;ccy&quot;: 456,</span>
-<span class="go">  &quot;createdDate&quot;: &quot;2023-12-30T16:08:06Z&quot;,</span>
-<span class="go">  &quot;modifiedDate&quot;: &quot;2023-12-30T16:08:06Z&quot;,</span>
-<span class="go">  &quot;reference&quot;: &quot;mockReference&quot;</span>
-<span class="go">}, &#39;mockhash&#39;)  # replace with actual test data</span>
-<span class="go">True  # expected output</span>
-<span class="go">&gt;&gt;&gt;</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <p>For listening all webhook, you can use <code class="docutils literal notranslate"><span class="pre">handle_webhook()</span></code> function</p>
@@ -195,9 +178,6 @@ It then verifies the webhook using the ‘verify_webhook’ function. If the web
               >index</a>
           </div>
           <div role="note" aria-label="source link">
-              <br/>
-              <a href="_sources/usage.rst.txt"
-                rel="nofollow">Show Source</a>
           </div>
         </div>
 
@@ -205,6 +185,7 @@ It then verifies the webhook using the ‘verify_webhook’ function. If the web
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2023, Ponomarova.
+      Last updated on January 04 2024.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
         </div>

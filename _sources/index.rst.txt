@@ -6,10 +6,18 @@
 Welcome to Mono_test_webhook's!
 ===============================
 
+:Author: Pani Anastasia
+
+.. This is a comment
+
+.. |date| date::
+
+.. Last Updated on |today|
+
 Check out the :doc:`usage` section for further information, including how to
 :ref:`install <installation>` the project.
 
-This module for developers Modern-Expo.  Use documentation `Acquiring (v2311) <https://api.monobank.ua/docs/acquiring.html>`_ and offers handling webhooks Monobanks
+This module for test.  Use documentation `Acquiring (v2311) <https://api.monobank.ua/docs/acquiring.html>`_ and offers handling webhooks Monobanks
 
 .. note::
 
