@@ -1,0 +1,6 @@
+@import 'agogo.css';
+/* Your own custom CSS code */
+
+dt:target, .highlighted {
+    background-image: linear-gradient(to right, #245995, #e6eff9);
+}

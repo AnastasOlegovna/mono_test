@@ -33,7 +33,6 @@ extensions = [
 templates_path = ['_templates']
 exclude_patterns = []
 
-
 # HTML block
 #
 # html_theme = 'alabaster' #standart  scrolls
@@ -45,7 +44,7 @@ html_theme = "agogo"  # best
 html_theme_options = {
     "linkcolor": '#204a87',
     'headerlinkcolor': 'white',
-    # "linkcolor": '#204a87'
+    # 'cssfiles': ['_static/custom.css'],
 }
 # html_theme = "nature"
 # html_theme = "pyramid"
@@ -59,3 +58,8 @@ html_title = "Mono_test_webhook's"
 html_last_updated_fmt = '%B %d %Y'
 html_show_sourcelink = False
 html_style = 'custom.css'
+
+
+# add my own css
+def setup(app):
+    app.add_css_file('custom.css')

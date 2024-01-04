@@ -1,0 +1,11 @@
+/* This file intentionally left blank. */
+@import 'agogo.css';
+
+/*
+dt:target, .highlighted {
+  background-color: linear-gradient(to right, #112a46, #ffffff);
+}
+*/
+dt:target, .highlighted {
+    background-image: linear-gradient(to right, #245995, #e6eff9);
+}
