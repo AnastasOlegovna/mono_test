@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 def get_from_env(key):
     """
-    Return key
+    Return key.
 
     :param key: required name of key
     :type key: str
@@ -28,15 +28,20 @@ def get_from_env(key):
 
 
 class TestGetFromEnv(unittest.TestCase):
+    """Unit test class for testing the get_from_env function."""
+
     def setUp(self):
+        """Set up the test environment. This method is called before each test."""
         self.key = 'TEST_KEY'
         self.value = 'TEST_VALUE'
         os.environ[self.key] = self.value
 
     def test_get_from_env(self):
+        """Test the get_from_env function with a key that exists in the environment."""
         self.assertEqual(get_from_env(self.key), self.value)
 
     def tearDown(self):
+        """Clean up the test environment. This method is called after each test."""
         del os.environ[self.key]
 
 
@@ -50,28 +55,29 @@ API_SECRET_KEY = get_from_env('API_KEY')
 
 def verify_webhook(data, hmac_header):
     """
-    Return ok
+    Return ok.
 
-    :param data: required response in request.get_data()
-    :type data: str or None
-    :param hmac_header: required response in request.headers.get('X-Sign')
-    :type hmac_header: list[str] or None
+    :param data: response from server Mono
+
+    :param hmac_header: hash X-Sign from response
+
     :return: ok
-    :rtype: str
 
-    >>>
-    verify_webhook({
-      "invoiceId": "mockInvoiceId",
-      "status": "mockStatus",
-      "amount": 123,
-      "ccy": 456,
-      "createdDate": "2023-12-30T16:08:06Z",
-      "modifiedDate": "2023-12-30T16:08:06Z",
-      "reference": "mockReference"
-    }, 'mockhash')  # replace with actual test data
-    True  # expected output
-    >>>
+    .. doctest:: :hide:
+
+        >>> verify_webhook({
+        ...   "invoiceId": "mockInvoiceId",
+        ...   "status": "mockStatus",
+        ...   "amount": 123,
+        ...   "ccy": 456,
+        ...   "createdDate": "2023-12-30T16:08:06Z",
+        ...   "modifiedDate": "2023-12-30T16:08:06Z",
+        ...   "reference": "mockReference"
+        ... }, 'mockhash')  # replace with actual test data
+        True  # expected output
+
     """
+    # Your function code here
     pub_key_bytes = base64.b64decode(API_SECRET_KEY)
     signature_bytes = base64.b64decode(hmac_header)
     pub_key = ecdsa.VerifyingKey.from_pem(pub_key_bytes.decode())
@@ -83,15 +89,15 @@ def verify_webhook(data, hmac_header):
 @app.route('/', methods=['POST'])
 def handle_webhook():
     """
-     Handle incoming webhooks, verify their authenticity, and print the response.
+    Handle incoming webhooks, verify their authenticity, and print the response.
 
-     This function retrieves the raw data from the incoming webhook request and the 'X-Sign' from the headers.
-     It then verifies the webhook using the 'verify_webhook' function. If the webhook is verified, it prints
-     "verified" and the JSON response from the request. If the webhook is not verified, it prints "not verified".
+    This function retrieves the raw data from the incoming webhook request and the 'X-Sign' from the headers.
+    It then verifies the webhook using the 'verify_webhook' function. If the webhook is verified, it prints
+    "verified" and the JSON response from the request. If the webhook is not verified, it prints "not verified".
 
-     :return: A dictionary with a single key-value pair, where the key is 'ok' and the value is True.
-     :rtype: dict
-     """
+    :return: A dictionary with a single key-value pair, where the key is 'ok' and the value is True.
+    :rtype: dict
+    """
     # Get raw body
     data = request.get_data()
     # print(f'Raw data:{data}')
