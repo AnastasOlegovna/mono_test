@@ -16,12 +16,15 @@ sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 project = 'Mono_test_webhook'
 copyright = '2023, Ponomarova'
 author = 'Ponomarova'
-release = '0.1'
+release = '0.2'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
+    # 'myst_parser',
+    # 'sphinx_markdown_builder', # побудова документації з markdown
+    'sphinx_copybutton',
     'sphinx.ext.autodoc',
     # може імпортувати модулі, які ви документуєте, і завантажувати документацію з рядків документації напівавтоматично
     'sphinx.ext.viewcode',  # додає посилання на виділений вихідний код
@@ -30,9 +33,17 @@ extensions = [
     'sphinx.ext.autosummary'  # Створення комплексних посилань на API
 ]
 
-templates_path = ['_templates']
 exclude_patterns = []
+# exclude_patterns = ['build/*']
 
+templates_path = ['_templates']
+
+# By default, Sphinx only supports 'restructuredtext' file type.
+# source_suffix = {
+#     '.rst': 'restructuredtext',
+#     # '.txt': 'markdown',
+#     # '.md': 'markdown',
+# }
 # HTML block
 #
 # html_theme = 'alabaster' #standart  scrolls
@@ -55,7 +66,7 @@ html_theme_options = {
 
 html_static_path = ['_static']
 html_title = "Mono_test_webhook's"
-html_last_updated_fmt = '%B %d %Y'
+html_last_updated_fmt = '%d %b %Y'
 html_show_sourcelink = False
 html_style = 'custom.css'
 
