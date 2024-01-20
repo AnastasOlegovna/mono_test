@@ -4,3 +4,9 @@
 dt:target, .highlighted {
     background-image: linear-gradient(to right, #245995, #e6eff9);
 }
+div.image-right {
+    float: right;
+    margin-top: -60px;
+    margin-left: 20px;
+    clear: both; /* Helps to prevent content from wrapping around floated image */
+}
