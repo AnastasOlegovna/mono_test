@@ -1,7 +1,9 @@
 name: "Sphinx: Render docs"
 
-on: push
-
+on:
+  push:
+    branches:
+      - add-google-analytics
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -9,8 +11,6 @@ jobs:
       contents: write
     steps:
     - uses: actions/checkout@v4
-    - name: copy modified index.html
-      run: cp path/to/index.html docs/build/html/
     - name: Build HTML
       uses: ammaraskar/sphinx-action@master
     - name: Upload artifacts
