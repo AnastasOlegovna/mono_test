@@ -12,7 +12,7 @@ jobs:
     - name: copy modified index.html
       run: cp path/to/index.html docs/build/html/
     - name: Build HTML
-      uses: AnastasOlegovna/sphinx-action@main
+      uses: ammaraskar/sphinx-action@master
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
