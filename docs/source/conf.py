@@ -56,7 +56,11 @@ html_theme_options = {
     "linkcolor": '#204a87',
     'headerlinkcolor': 'white',
     # 'cssfiles': ['_static/custom.css'],
+    # 'extrahead_template': ['_static/layout.html'],
 }
+# html_theme_options = {
+#          'extrahead_template': 'layout.html',
+#      }
 # html_theme = "nature"
 # html_theme = "pyramid"
 # html_theme = "haiku"

@@ -1,26 +1,50 @@
 name: "Sphinx: Render docs"
 
 on:
-  push:
-    branches:
-      - add-google-analytics
+  push
+
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@v4
-    - name: Build HTML
-      uses: ammaraskar/sphinx-action@master
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: html-docs
-        path: docs/build/html/
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: docs/build/html
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up environment variables
+        run: |
+          echo "GA_ACCOUNT_NUMBER=${{ secrets.GA_ACCOUNT_NUMBER }}" >> $GITHUB_ENV
+
+      - name: Build HTML
+        run: sphinx-build -b html docs docs/build/html
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: html-docs
+          path: docs/build/html/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download HTML artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: html-docs
+          path: docs/build/html/
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up environment variables
+        run: |
+          echo "GA_ACCOUNT_NUMBER=${{ secrets.GA_ACCOUNT_NUMBER }}" >> $GITHUB_ENV
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/build/html
