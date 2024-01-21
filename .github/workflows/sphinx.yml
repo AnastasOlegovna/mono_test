@@ -12,6 +12,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Replace with your actual requirements file if you have one
+
       - name: Set up environment variables
         run: |
           echo "GA_ACCOUNT_NUMBER=${{ secrets.GA_ACCOUNT_NUMBER }}" >> $GITHUB_ENV
@@ -37,6 +45,14 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Replace with your actual requirements file if you have one
 
       - name: Set up environment variables
         run: |
