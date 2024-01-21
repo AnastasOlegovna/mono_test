@@ -10,13 +10,14 @@
 # generate documentation.
 import pathlib
 import sys
+import os
 
 sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 
 project = 'Mono_test_webhook'
 copyright = '2023, Ponomarova'
 author = 'Ponomarova'
-release = '0.2'
+release = '0.3'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -24,6 +25,7 @@ release = '0.2'
 extensions = [
     # 'myst_parser',
     # 'sphinx_markdown_builder', # побудова документації з markdown
+    'sphinxcontrib.googleanalytics',
     'sphinx_copybutton',
     'sphinx.ext.autodoc',
     # може імпортувати модулі, які ви документуєте, і завантажувати документацію з рядків документації напівавтоматично
@@ -37,7 +39,7 @@ exclude_patterns = []
 # exclude_patterns = ['build/*']
 
 templates_path = ['_templates']
-
+googleanalytics_id = 'G-9V8RFYNYB7'
 # By default, Sphinx only supports 'restructuredtext' file type.
 # source_suffix = {
 #     '.rst': 'restructuredtext',
@@ -58,9 +60,7 @@ html_theme_options = {
     # 'cssfiles': ['_static/custom.css'],
     # 'extrahead_template': ['_static/layout.html'],
 }
-# html_theme_options = {
-#          'extrahead_template': 'layout.html',
-#      }
+
 # html_theme = "nature"
 # html_theme = "pyramid"
 # html_theme = "haiku"
