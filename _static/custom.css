@@ -10,3 +10,18 @@ div.image-right {
     margin-left: 20px;
     clear: both; /* Helps to prevent content from wrapping around floated image */
 }
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+table, th, td {
+  border: 1px solid black;
+}
+td:nth-child(2) {  /* This targets the second column */
+  width: 10%;  /* Adjust this value to set the column width */
+}
+table {
+  margin-bottom: 20px;  /* Adjust this value to set the amount of space */
+}
+
+

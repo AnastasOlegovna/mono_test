@@ -34,6 +34,25 @@ This module for test.  Use documentation `Acquiring (v2311) <https://api.monoban
 
    This project is for test before implements
 
+.. start disable
+.. note::
+    :class: dropdown
+
+    This is my note.
+
+.. start enable
+.. note::
+    :class: dropdown, toggle-shown
+
+    This is my note.
+
+.. контейнери для додавання довільного коду, який можна перемикати
+.. container:: toggle, toggle-hidden
+
+    .. admonition:: Перегляньте це, зображення!
+
+        .. image:: https://api.monobank.ua/docs/logo.png
+
 Contents
 --------
 
@@ -42,6 +61,11 @@ Contents
 
    api
    usage
+   new_page
+   main
+   template
+.. 404
+
 
 
 
