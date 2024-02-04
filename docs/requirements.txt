@@ -2,12 +2,12 @@ furo==2021.11.16
 Flask==2.3.3
 ecdsa
 python-dotenv
+Sphinx==7.2.6
 sphinx-copybutton==0.5.2
 sphinxcontrib-googleanalytics==0.4
 sphinx-togglebutton==0.3.2
 sphinx-rtd-theme==2.0.0
 sphinxcontrib-jquery==4.1
-
 
 
 
