@@ -4,6 +4,11 @@ ecdsa
 python-dotenv
 sphinx-copybutton==0.5.2
 sphinxcontrib-googleanalytics==0.4
+sphinx-togglebutton==0.3.2
+sphinx-rtd-theme==2.0.0
+sphinxcontrib-jquery==4.1
+
+
 
 
 

@@ -12,12 +12,15 @@ import pathlib
 import sys
 import os
 
+
+# sys.setrecursionlimit(2000)
+
 sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 
 project = 'Mono_test_webhook'
 copyright = '2023, Ponomarova'
 author = 'Ponomarova'
-release = '0.3'
+release = '0.4'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -25,7 +28,9 @@ release = '0.3'
 extensions = [
     # 'myst_parser',
     # 'sphinx_markdown_builder', # побудова документації з markdown
+    # 'notfound.extension', #404
     'sphinxcontrib.googleanalytics',
+    'sphinx_togglebutton', #dropdown list
     'sphinx_copybutton',
     'sphinx.ext.autodoc',
     # може імпортувати модулі, які ви документуєте, і завантажувати документацію з рядків документації напівавтоматично
@@ -53,13 +58,15 @@ googleanalytics_id = 'G-9V8RFYNYB7'
 # html_theme = "classic"
 # html_theme = "sphinxdoc"
 # html_theme = "scrolls"
-html_theme = "agogo"  # best
-html_theme_options = {
-    "linkcolor": '#204a87',
-    'headerlinkcolor': 'white',
-    # 'cssfiles': ['_static/custom.css'],
-    # 'extrahead_template': ['_static/layout.html'],
-}
+
+# my theme
+# html_theme = "agogo"  # best
+# html_theme_options = {
+#     "linkcolor": '#204a87',
+#     'headerlinkcolor': 'white',
+#     # 'cssfiles': ['_static/custom.css'],
+#     # 'extrahead_template': ['_static/layout.html'],
+# }
 
 # html_theme = "nature"
 # html_theme = "pyramid"
@@ -68,13 +75,26 @@ html_theme_options = {
 # html_theme = "epub"
 # html_theme = "bizstyle"
 
+# TEST
+html_theme = "sphinx_rtd_theme"
+
 html_static_path = ['_static']
+
+notfound_template = '404.html'
+
 html_title = "Mono_test_webhook's"
 html_last_updated_fmt = '%d %b %Y'
 html_show_sourcelink = False
-html_style = 'custom.css'
+
+html_logo = 'my_logo.png'
+logo_only = True
+# html_style = 'custom.css'
 
 
 # add my own css
-def setup(app):
-    app.add_css_file('custom.css')
+
+
+# def setup(app):
+#     app.add_css_file('custom.css')
+
+
