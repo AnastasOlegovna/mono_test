@@ -63,9 +63,6 @@ Contents
    usage
    new_page
    main
-   template
-.. 404
-
 
 
 

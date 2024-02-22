@@ -12,15 +12,12 @@ import pathlib
 import sys
 import os
 
-
-# sys.setrecursionlimit(2000)
-
 sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 
 project = 'Mono_test_webhook'
 copyright = '2023, Ponomarova'
 author = 'Ponomarova'
-release = '0.4'
+release = '0.5'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -30,7 +27,7 @@ extensions = [
     # 'sphinx_markdown_builder', # побудова документації з markdown
     # 'notfound.extension', #404
     'sphinxcontrib.googleanalytics',
-    'sphinx_togglebutton', #dropdown list
+    'sphinx_togglebutton',  # dropdown list
     'sphinx_copybutton',
     'sphinx.ext.autodoc',
     # може імпортувати модулі, які ви документуєте, і завантажувати документацію з рядків документації напівавтоматично
@@ -40,7 +37,7 @@ extensions = [
     'sphinx.ext.autosummary'  # Створення комплексних посилань на API
 ]
 
-exclude_patterns = []
+# exclude_patterns = []
 # exclude_patterns = ['build/*']
 
 templates_path = ['_templates']
@@ -79,6 +76,7 @@ googleanalytics_id = 'G-9V8RFYNYB7'
 html_theme = "sphinx_rtd_theme"
 
 html_static_path = ['_static']
+exclude_patterns = ['404.html']  # Щоб видалити посилання на сторінку «404 не знайдено» з усіх HTML-сторінок
 
 notfound_template = '404.html'
 
@@ -86,15 +84,14 @@ html_title = "Mono_test_webhook's"
 html_last_updated_fmt = '%d %b %Y'
 html_show_sourcelink = False
 
-html_logo = 'my_logo.png'
-logo_only = True
+# html_logo = 'my_logo.png'
+# logo_only = True
+# add my own css
 # html_style = 'custom.css'
 
+html_css_files = [
+    'css/custom.css',
+]
 
-# add my own css
-
-
-# def setup(app):
-#     app.add_css_file('custom.css')
-
-
+def setup(app):
+    app.add_css_file('custom.css')

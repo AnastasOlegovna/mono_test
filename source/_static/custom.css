@@ -1,33 +1,11 @@
 /* This file intentionally left blank. */
-@import 'agogo.css';
-
-/*
-dt:target, .highlighted {
-  background-color: linear-gradient(to right, #112a46, #ffffff);
+@import 'theme.css';
+body {
+  background-color: #F6F6F6;
+  font-size: 0.75rem;
+  font: inherit;
 }
-*/
-dt:target, .highlighted {
-    background-image: linear-gradient(to right, #245995, #e6eff9);
+.wy-side-nav-search {
+  background-color: #ef4444;
 }
-div.image-right {
-    float: right;
-    margin-top: -60px;
-    margin-left: 20px;
-    clear: both; /* Helps to prevent content from wrapping around floated image */
-}
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-table, th, td {
-  border: 1px solid black;
-}
-td:nth-child(2) {  /* This targets the second column */
-  width: 10%;  /* Adjust this value to set the column width */
-}
-
-table.docutils thead {
-    background-color: grey;
-}
-
 
