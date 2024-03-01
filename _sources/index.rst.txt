@@ -63,6 +63,7 @@ Contents
    usage
    new_page
    main
+   test_page
 
 
 
