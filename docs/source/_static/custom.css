@@ -32,3 +32,12 @@ body {
 .wy-side-nav-search {
   background-color: #ef4444;
 }
+.collapse-code {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.collapse-code summary {
+    cursor: pointer;
+}
