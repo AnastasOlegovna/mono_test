@@ -2,7 +2,7 @@
 ==============
 
 Іконки (піктограми)
-===================
+-------------------
 
 Використовуються в меню та інших компонентах
 
@@ -21,26 +21,20 @@
 1. Змінити кольорову гаму (на мою думку вона не є ок)
 2. Змінити компоненту статусів в карточці
 
+.. admonition:: More
+   :class: dropdown
+
+   test
+   my
+   list
+
 Варіант який можливо розглянути
 
 .. |check| raw:: html
 
     <input checked=""  type="checkbox">
 
-.. |check_| raw:: html
-
-    <input checked=""  type="checkbox">
-
-.. |uncheck| raw:: html
-
-    <input checked=""  type="checkbox">
-
-.. |uncheck_| raw:: html
-
-    <input checked=""  type="checkbox">
-
 **Чек-лист**
-============
 
 |check| Один
 
@@ -49,6 +43,38 @@
 |check| Три
 
 ************************************************************************************************************************
+
+Required permission: ``ticket.agent`` or ``ticket.customer``
+
+``GET``-Request sent: ``/api/v1/tickets``
+
+Response:
+
+.. raw:: html
+
+    <details class="collapse-code">
+    <summary>Click to expand</summary>
+
+.. code-block:: json
+
+   {
+       "id": 1,
+       "group_id": 1,
+       "priority_id": 2,
+       "state_id": 1,
+       "organization_id": 1,
+       "number": "22001",
+       "title": "Welcome to Zammad!",
+       "owner_id": null,
+       "customer_id": null,
+       "note": null,
+       "first_response_at": null,
+       "first_response_escalation_at": null
+   }
+
+.. raw:: html
+
+    </details>
 
 .. note::
     :class: dropdown
@@ -60,6 +86,7 @@
 .. attention::
 
     Цитата
+
 
 .. code-block:: python
 
@@ -94,3 +121,4 @@
         ok = pub_key.verify(signature_bytes, data, sigdecode=ecdsa.util.sigdecode_der, hashfunc=hashlib.sha256)
 
         return ok
+
