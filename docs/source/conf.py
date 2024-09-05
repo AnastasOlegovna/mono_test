@@ -90,7 +90,7 @@ html_show_sourcelink = False
 # add my own css
 # html_style = 'custom.css'
 
-js_source_path = ['../../']  # Adjust this based on the relative path
+js_source_path = '../../'  # Adjust this based on the relative path
 
 html_css_files = [
     'css/custom.css',
