@@ -19,8 +19,6 @@ jobs:
 
     - name: Install Node.js dependencies
       run: |
-        python -m venv venv
-        source venv/bin/activate
         npm install
         npm install -g jsdoc
 
@@ -32,9 +30,11 @@ jobs:
 
     - name: Install Python dependencies
       run: |
-        pip install --upgrade pip
+        python -m venv venv
+        source venv/bin/activate
         pip install -r requirements.txt
 
+    # Verify Installation
     - name: Verify Installation
       run: |
         source venv/bin/activate
@@ -42,7 +42,9 @@ jobs:
 
     # Build HTML
     - name: Build HTML
-      uses: ammaraskar/sphinx-action@master
+      run: |
+        source venv/bin/activate
+        make html
 
     # Upload artifacts
     - name: Upload artifacts
