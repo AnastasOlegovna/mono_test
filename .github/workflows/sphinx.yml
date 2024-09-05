@@ -44,7 +44,7 @@ jobs:
     - name: Build HTML
       run: |
         source venv/bin/activate
-        make html
+        sphinx-build -M html docs/source/ docs/build/
 
     # Upload artifacts
     - name: Upload artifacts
