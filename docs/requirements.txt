@@ -8,7 +8,6 @@ sphinxcontrib-googleanalytics
 sphinx-togglebutton
 sphinx-rtd-theme
 sphinxcontrib-jquery
-sphinx_js
 
 
 

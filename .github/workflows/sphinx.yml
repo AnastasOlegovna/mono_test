@@ -7,58 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
     steps:
-    - uses: actions/checkout@v2
-
-    # Install Node.js and jsdoc
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
-
-    - name: Install Node.js dependencies
-      run: |
-        npm install
-        npm install -g jsdoc
-
-    # Install Python dependencies
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'
-
-    - name: Install Python dependencies
-      run: |
-        python -m venv venv
-        source venv/bin/activate
-        pip install -r requirements.txt
-
-      # Run jsdoc
-    - name: Run jsdoc
-      run: |
-        jsdoc -c jsdoc.conf.json
-
-    # Verify Installation
-    - name: Verify Installation
-      run: |
-        source venv/bin/activate
-        pip list | grep sphinxcontrib-googleanalytics
-
-    # Build HTML
+    - uses: actions/checkout@v4
     - name: Build HTML
-      run: |
-        source venv/bin/activate
-        sphinx-build -M html docs/source/ docs/build/
-
-    # Upload artifacts
+      uses: ammaraskar/sphinx-action@master
     - name: Upload artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: html-docs
         path: docs/build/html/
-
-    # Deploy
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/main'
