@@ -10,7 +10,7 @@ TEMPLATE INSTRUCTION |image|
 Introduction
 ============
 
-This guide provides instructions on how to use tool.
+This guide provides instructions on how to use tool
 
 Usage
 =====
