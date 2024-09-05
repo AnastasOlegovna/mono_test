@@ -8,6 +8,8 @@ sphinxcontrib-googleanalytics==0.4
 sphinx-togglebutton==0.3.2
 sphinx-rtd-theme==2.0.0
 sphinxcontrib-jquery==4.1
+sphinx_js==3.2.2
+
 
 
 
