@@ -1,14 +1,14 @@
 furo
-Flask==2.3.3
+Flask
 ecdsa
 python-dotenv
 Sphinx>=5.0
-sphinx-copybutton==0.5.2
-sphinxcontrib-googleanalytics==0.4
-sphinx-togglebutton==0.3.2
-sphinx-rtd-theme==2.0.0
-sphinxcontrib-jquery==4.1
-sphinx_js==3.2.2
+sphinx-copybutton
+sphinxcontrib-googleanalytics
+sphinx-togglebutton
+sphinx-rtd-theme
+sphinxcontrib-jquery
+sphinx_js
 
 
 
