@@ -15,9 +15,9 @@ import os
 sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 
 project = 'Mono_test_webhook'
-copyright = '2023, Ponomarova'
+copyright = '2024, Ponomarova'
 author = 'Ponomarova'
-release = '0.5'
+release = '0.6'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -27,6 +27,7 @@ extensions = [
     # 'sphinx_markdown_builder', # побудова документації з markdown
     # 'notfound.extension', #404
     'sphinxcontrib.googleanalytics',
+    'sphinx_js',
     'sphinx_togglebutton',  # dropdown list
     'sphinx_copybutton',
     'sphinx.ext.autodoc',
@@ -88,6 +89,8 @@ html_show_sourcelink = False
 # logo_only = True
 # add my own css
 # html_style = 'custom.css'
+
+js_source_path = ['../../']  # Adjust this based on the relative path
 
 html_css_files = [
     'css/custom.css',

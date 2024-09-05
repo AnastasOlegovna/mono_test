@@ -24,9 +24,9 @@
 .. admonition:: More
    :class: dropdown
 
-   test
-   my
-   list
+    - один
+    - два
+    - три
 
 Варіант який можливо розглянути
 

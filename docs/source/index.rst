@@ -64,6 +64,7 @@ Contents
    new_page
    main
    test_page
+   coffee_test
 
 
 
