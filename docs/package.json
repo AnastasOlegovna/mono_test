@@ -1,0 +1,14 @@
+{
+  "name": "mono sphinx",
+  "version": "1.0.0",
+  "description": "Project description",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.6.7"
+  },
+  "author": "ponomarova",
+  "license": "ISC"
+}
