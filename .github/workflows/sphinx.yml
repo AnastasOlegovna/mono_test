@@ -19,6 +19,8 @@ jobs:
 
     - name: Install Node.js dependencies
       run: |
+        python -m venv venv
+        source venv/bin/activate
         npm install
         npm install -g jsdoc
 
@@ -30,9 +32,13 @@ jobs:
 
     - name: Install Python dependencies
       run: |
-        python -m venv venv
-        source venv/bin/activate
+        pip install --upgrade pip
         pip install -r requirements.txt
+
+    - name: Verify Installation
+      run: |
+        source venv/bin/activate
+        pip list | grep sphinxcontrib-googleanalytics
 
     # Build HTML
     - name: Build HTML
