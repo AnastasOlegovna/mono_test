@@ -27,7 +27,7 @@ extensions = [
     # 'sphinx_markdown_builder', # побудова документації з markdown
     # 'notfound.extension', #404
     'sphinxcontrib.googleanalytics',
-    # 'sphinx_js',
+    'sphinx_js',
     'sphinx_togglebutton',  # dropdown list
     'sphinx_copybutton',
     'sphinx.ext.autodoc',

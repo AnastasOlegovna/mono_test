@@ -9,13 +9,38 @@ jobs:
       contents: write
     steps:
     - uses: actions/checkout@v4
+
+      # Install Python dependencies
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+      
+
+      # Install Node.js and npm
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 'lts' # Or use 'lts' to always get the latest LTS version
+
+    # Install jsdoc globally
+    - name: Install jsdoc
+      run: |
+        npm install -g jsdoc
+        pip install sphinx-js
+
+    # Build the Sphinx documentation
     - name: Build HTML
       uses: ammaraskar/sphinx-action@master
+
+    # Upload artifacts
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
         name: html-docs
         path: docs/build/html/
+
+    # Deploy to GitHub Pages if on the 'main' branch
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/main'
