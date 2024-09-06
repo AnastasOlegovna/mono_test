@@ -21,7 +21,7 @@ jobs:
     - name: Install Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 'lts' # Or use 'lts' to always get the latest LTS version
+        node-version: '18' # Or use 'lts' to always get the latest LTS version
 
     # Install jsdoc globally
     - name: Install jsdoc
