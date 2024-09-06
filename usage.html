@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -28,15 +28,16 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=2bb87964"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="_static/documentation_options.js?v=ec806d2c"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="_static/copybutton.js?v=f281be69"></script>
         <script>let toggleHintShow = 'Click to show';</script>
         <script>let toggleHintHide = 'Click to hide';</script>
         <script>let toggleOpenOnPrint = 'true';</script>
         <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -106,9 +107,9 @@
            <div itemprop="articleBody">
              
   <section id="usage">
-<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h1>
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
 <section id="installation">
-<span id="id1"></span><h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
+<span id="id1"></span><h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>To use module, first install requirements.txt:</p></li>
 </ol>
@@ -130,12 +131,12 @@
 </div>
 </section>
 <section id="use">
-<h2>Use<a class="headerlink" href="#use" title="Permalink to this heading"></a></h2>
+<h2>Use<a class="headerlink" href="#use" title="Link to this heading"></a></h2>
 <p>Get your API key,
 you can use the <code class="docutils literal notranslate"><span class="pre">get_from_env(key)</span></code> function</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="webhook_prod.get_from_env">
-<span class="sig-prename descclassname"><span class="pre">webhook_prod.</span></span><span class="sig-name descname"><span class="pre">get_from_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/webhook_prod.html#get_from_env"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#webhook_prod.get_from_env" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">webhook_prod.</span></span><span class="sig-name descname"><span class="pre">get_from_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/webhook_prod.html#get_from_env"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#webhook_prod.get_from_env" title="Link to this definition"></a></dt>
 <dd><p>Return key.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -160,7 +161,7 @@ you can use the <code class="docutils literal notranslate"><span class="pre">get
 you can use the <code class="docutils literal notranslate"><span class="pre">verify_webhook(data,</span> <span class="pre">hmac_header)</span></code> function</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="webhook_prod.verify_webhook">
-<span class="sig-prename descclassname"><span class="pre">webhook_prod.</span></span><span class="sig-name descname"><span class="pre">verify_webhook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hmac_header</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/webhook_prod.html#verify_webhook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#webhook_prod.verify_webhook" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">webhook_prod.</span></span><span class="sig-name descname"><span class="pre">verify_webhook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hmac_header</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/webhook_prod.html#verify_webhook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#webhook_prod.verify_webhook" title="Link to this definition"></a></dt>
 <dd><p>Return ok.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -178,7 +179,7 @@ you can use the <code class="docutils literal notranslate"><span class="pre">ver
 <p>For listening all webhook, you can use <code class="docutils literal notranslate"><span class="pre">handle_webhook()</span></code> function</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="webhook_prod.handle_webhook">
-<span class="sig-prename descclassname"><span class="pre">webhook_prod.</span></span><span class="sig-name descname"><span class="pre">handle_webhook</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/webhook_prod.html#handle_webhook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#webhook_prod.handle_webhook" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">webhook_prod.</span></span><span class="sig-name descname"><span class="pre">handle_webhook</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/webhook_prod.html#handle_webhook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#webhook_prod.handle_webhook" title="Link to this definition"></a></dt>
 <dd><p>Handle incoming webhooks, verify their authenticity, and print the response.</p>
 <p>This function retrieves the raw data from the incoming webhook request and the ‘X-Sign’ from the headers.
 It then verifies the webhook using the ‘verify_webhook’ function. If the webhook is verified, it prints
@@ -208,7 +209,7 @@ It then verifies the webhook using the ‘verify_webhook’ function. If the web
 
   <div role="contentinfo">
     <p>&#169; Copyright 2024, Ponomarova.
-      <span class="lastupdated">Last updated on 05 Sep 2024.
+      <span class="lastupdated">Last updated on 06 Sep 2024.
       </span></p>
   </div>
 

@@ -4,11 +4,6 @@
 .. automodule:: webhook_prod
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -17,21 +12,9 @@
       handle_webhook
       verify_webhook
    
-   
-
-   
-   
    .. rubric:: Classes
 
    .. autosummary::
    
       TestGetFromEnv
    
-   
-
-   
-   
-   
-
-
-

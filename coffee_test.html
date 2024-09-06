@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -28,15 +28,16 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=2bb87964"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="_static/documentation_options.js?v=ec806d2c"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="_static/copybutton.js?v=f281be69"></script>
         <script>let toggleHintShow = 'Click to show';</script>
         <script>let toggleHintHide = 'Click to hide';</script>
         <script>let toggleOpenOnPrint = 'true';</script>
         <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -76,7 +77,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#button-descriptions">Button Descriptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#additional-buttons">Additional Buttons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#developer-notes">Developer Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#developer-notes">Developer Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#linkDensity"><code class="docutils literal notranslate"><span class="pre">linkDensity()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -105,20 +109,20 @@
            <div itemprop="articleBody">
              
   <section id="coffee-machine-test">
-<h1>Coffee Machine Test<a class="headerlink" href="#coffee-machine-test" title="Permalink to this heading"></a></h1>
+<h1>Coffee Machine Test<a class="headerlink" href="#coffee-machine-test" title="Link to this heading"></a></h1>
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
 <iframe src="_static/vv.html" width="100%" height="100px"></iframe><p>This function help you</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="ccc.makeCoffee">
-<span class="sig-prename descclassname"><span class="pre">ccc.</span></span><span class="sig-name descname"><span class="pre">makeCoffee</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc.html#makeCoffee"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.makeCoffee" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">ccc.</span></span><span class="sig-name descname"><span class="pre">makeCoffee</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc.html#makeCoffee"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.makeCoffee" title="Link to this definition"></a></dt>
 <dd><p>Function to make coffee.</p>
 <p>This function serves as a placeholder for the actual coffee-making logic in JavaScript.</p>
 </dd></dl>
 
 </section>
 <section id="button-descriptions">
-<h2>Button Descriptions<a class="headerlink" href="#button-descriptions" title="Permalink to this heading"></a></h2>
+<h2>Button Descriptions<a class="headerlink" href="#button-descriptions" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p><strong>Espresso Button</strong>:
 - Purpose: Selects the Espresso coffee type.
@@ -135,16 +139,36 @@
 </ol>
 </section>
 <section id="additional-buttons">
-<h2>Additional Buttons<a class="headerlink" href="#additional-buttons" title="Permalink to this heading"></a></h2>
+<h2>Additional Buttons<a class="headerlink" href="#additional-buttons" title="Link to this heading"></a></h2>
 <p>If you add more buttons in the future, follow the same pattern:
 - Describe the purpose.
 - Specify the action (function call).
 - Explain the result.</p>
 </section>
 <section id="developer-notes">
-<h2>Developer Notes<a class="headerlink" href="#developer-notes" title="Permalink to this heading"></a></h2>
+<h2>Developer Notes<a class="headerlink" href="#developer-notes" title="Link to this heading"></a></h2>
 <p>Developers can modify the <cite>makeCoffee</cite> function to handle new coffee types dynamically.</p>
 <p>Remember to keep your documentation up-to-date as you add or remove buttons from the interface.</p>
+<dl class="js function">
+<dt class="sig sig-object js" id="linkDensity">
+<span class="sig-name descname"><span class="n"><span class="pre">linkDensity</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linkDensity" title="Link to this definition"></a></dt>
+<dd><p>Return the ratio of the inline text length of the links in an element to
+the inline text length of the entire element.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> (<em>Node</em>) – Types or not: either works.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>PartyError|Hearty</strong> – Multiple types work fine.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Number</strong> – Types and descriptions are both supported.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 
@@ -159,7 +183,7 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2024, Ponomarova.
-      <span class="lastupdated">Last updated on 05 Sep 2024.
+      <span class="lastupdated">Last updated on 06 Sep 2024.
       </span></p>
   </div>
 
