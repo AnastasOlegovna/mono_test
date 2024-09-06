@@ -28,7 +28,10 @@ jobs:
       run: |
         npm install -g jsdoc
         pip install sphinx-js
-        pip install Sphinx
+        pip install sphinxcontrib-googleanalytics
+        pip show Sphinx
+        pip show sphinxcontrib-googleanalytics
+
 
     # Build the Sphinx documentation
     - name: Build HTML
