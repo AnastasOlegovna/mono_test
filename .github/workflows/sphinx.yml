@@ -10,32 +10,33 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-      # Install Python dependencies
+    # Install Python dependencies and enforce Sphinx version 7.4.7
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-      
+        pip install --force-reinstall -r requirements.txt
 
-      # Install Node.js and npm
+    # Install Node.js and npm
     - name: Install Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18' # Or use 'lts' to always get the latest LTS version
+        node-version: '18'  # Ensure you have a specific node version
 
     # Install jsdoc globally
     - name: Install jsdoc
       run: |
         npm install -g jsdoc
         pip install sphinx-js
-        pip install sphinxcontrib-googleanalytics
-        pip show Sphinx
-        pip show sphinxcontrib-googleanalytics
 
+    # Force reinstall of Sphinx version 7.4.7 inside Docker container (if needed)
+    - name: Reinstall Sphinx to 7.4.7
+      run: |
+        pip install --force-reinstall Sphinx==7.4.7
 
     # Build the Sphinx documentation
     - name: Build HTML
-      uses: ammaraskar/sphinx-action@master
+      run: make html  # Ensure the correct make command is run
+      working-directory: docs
 
     # Upload artifacts
     - name: Upload artifacts
